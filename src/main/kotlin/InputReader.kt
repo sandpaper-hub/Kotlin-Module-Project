@@ -9,6 +9,7 @@ object InputReader {
             val input: Int
             if (scanner.hasNextInt()) {
                 input = scanner.nextInt()
+                scanner.nextLine()
                 return input
             } else {
                 SystemMessage.INCORRECT_DATA.printMessage()
@@ -20,7 +21,7 @@ object InputReader {
     fun readName(): String {
         var name: String
         while (true) {
-            name = scanner.next()
+            name = scanner.nextLine()
             if (name.isNotBlank() && name.length <= 100) {
                 break
             } else {
@@ -33,7 +34,7 @@ object InputReader {
     fun readContent(): String {
         var content: String
         while (true) {
-            content = scanner.next()
+            content = scanner.nextLine()
             if (content.isNotBlank()) {
                 break
             } else {

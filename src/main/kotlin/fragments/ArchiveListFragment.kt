@@ -6,12 +6,18 @@ import dataPack.Menu
 import enums.Command
 import enums.SystemMessage
 import printMenu
+import kotlin.system.exitProcess
 
 class ArchiveListFragment {
-    private val menu = Menu("Список архивов", mutableMapOf())
+    private val menu = Menu(
+        "Список архивов", mutableMapOf(
+            0 to Command.EXIT.toString(),
+            1 to Command.CREATE_ARCHIVE.toString()
+        )
+    )
 
-    init {
-        var count = 1
+    private fun initializeMenu() {
+        var count = 2
         for (command in DataManager.archiveMap) {
             menu.mapOfCommand[count] = command.key
             count++
@@ -19,21 +25,21 @@ class ArchiveListFragment {
     }
 
     private fun showMenu() {
+        initializeMenu()
+        printMenu(menu)
         if (DataManager.archiveMap.isEmpty()) {
             SystemMessage.EMPTY_ARCHIVE_LIST.printMessage()
-        } else {
-            printMenu(menu)
         }
-        println("${menu.mapOfCommand.size+1} ${Command.BACK}")
     }
 
     fun startFragment() {
-        val commandQuantity = menu.mapOfCommand.size
         while (true) {
+            val archiveListSize = DataManager.archiveMap.size + 1
             showMenu()
             when (val command = InputReader.readCommand()) {
-                in 1..commandQuantity -> InArchiveFragment(DataManager.archiveMap[menu.mapOfCommand[command].toString()]).startFragment()
-                commandQuantity + 1 -> return
+                0 -> exitProcess(0)
+                1 -> ArchiveCreateFragment()
+                in 2..archiveListSize -> NoteListFragment(DataManager.archiveMap[menu.mapOfCommand[command].toString()]!!).startFragment()
                 else -> SystemMessage.NON_EXISTENT_COMMAND.printMessage()
             }
         }
