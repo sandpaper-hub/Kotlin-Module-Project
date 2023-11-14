@@ -2,11 +2,11 @@ package fragments
 
 import dataPack.Archive
 import dataPack.DataManager
-import enums.SystemMessage
+import util.printMessage
 
 class NoteCreateFragment(archive: Archive) {
     init {
-        SystemMessage.CREATE_NOTE.printMessage()
+        util.SystemMessage.CREATE_NOTE.printMessage()
         DataManager.addNote(archive)
     }
 }

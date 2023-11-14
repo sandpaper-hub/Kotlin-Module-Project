@@ -1,3 +1,5 @@
+package util
+
 import dataPack.Menu
 
 fun printMenu(menu: Menu) {

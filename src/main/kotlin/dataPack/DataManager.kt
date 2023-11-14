@@ -1,7 +1,7 @@
 package dataPack
 
-import InputReader
-import enums.SystemMessage
+import util.InputReader
+import util.printMessage
 
 object DataManager {
     val archiveMap: MutableMap<String, Archive> = mutableMapOf()
@@ -9,7 +9,7 @@ object DataManager {
     fun addArchive() {
         val name = InputReader.readName()
         if (archiveMap.contains(name)) {
-            SystemMessage.ARCHIVE_NAME_ALREADY_EXIST.printMessage()
+            util.SystemMessage.ARCHIVE_NAME_ALREADY_EXIST.printMessage()
         } else {
             archiveMap[name] = Archive(name, arrayListOf())
             println("Архив \"$name\" успешно создан!")
@@ -17,15 +17,15 @@ object DataManager {
     }
 
     fun addNote(archive: Archive?) {
-        SystemMessage.INPUT_NOTE_NAME.printMessage()
+        util.SystemMessage.INPUT_NOTE_NAME.printMessage()
         val noteName = InputReader.readName()
         for (note in archive?.notesList!!) {
             if (note.name == noteName) {
-                SystemMessage.NOTE_NAME_ALREADY_EXIST.printMessage()
+                util.SystemMessage.NOTE_NAME_ALREADY_EXIST.printMessage()
                 return
             }
         }
-        SystemMessage.INPUT_NOTE_CONTENT.printMessage()
+        util.SystemMessage.INPUT_NOTE_CONTENT.printMessage()
         val content = InputReader.readContent()
         archive.notesList.add(Note(noteName, content))
         println("Заметка $noteName успешно создана")

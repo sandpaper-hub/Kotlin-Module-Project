@@ -1,8 +1,8 @@
-import enums.SystemMessage
+import util.printMessage
 import fragments.ArchiveListFragment
 
 fun main() {
-    SystemMessage.HELLO.printMessage()
+    util.SystemMessage.HELLO.printMessage()
     val archiveListFragment = ArchiveListFragment()
     archiveListFragment.startFragment()
 }

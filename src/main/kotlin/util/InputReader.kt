@@ -1,20 +1,17 @@
-import enums.SystemMessage
+package util
+
+import java.lang.NumberFormatException
 import java.util.Scanner
 
 object InputReader {
     private val scanner: Scanner = Scanner(System.`in`)
     fun readCommand(): Int {
         SystemMessage.INPUT_COMMAND.printMessage()
-        while (true) {
-            val input: Int
-            if (scanner.hasNextInt()) {
-                input = scanner.nextInt()
-                scanner.nextLine()
-                return input
-            } else {
-                SystemMessage.INCORRECT_DATA.printMessage()
-                scanner.next()
-            }
+        val input = scanner.nextLine()
+        return try {
+            input.toInt()
+        } catch (e: NumberFormatException) {
+            -1
         }
     }
 

@@ -1,12 +1,12 @@
 package fragments
 
-import InputReader
+import util.InputReader
 import dataPack.Archive
 import dataPack.Menu
 import enums.Command
 import enums.FragmentName
-import enums.SystemMessage
-import printMenu
+import util.printMenu
+import util.printMessage
 
 class NoteListFragment(private val archive: Archive) {
     private val menu = Menu(
@@ -28,7 +28,7 @@ class NoteListFragment(private val archive: Archive) {
         initializeMenu()
         printMenu(menu)
         if (archive.notesList.isEmpty()) {
-            SystemMessage.EMPTY_NOTE_LIST.printMessage()
+            util.SystemMessage.EMPTY_NOTE_LIST.printMessage()
         }
     }
 
@@ -37,10 +37,11 @@ class NoteListFragment(private val archive: Archive) {
             val noteListSize = archive.notesList.size + 1
             showMenu()
             when (val command = InputReader.readCommand()) {
+                -1 -> util.SystemMessage.INCORRECT_DATA.printMessage()
                 0 -> return
                 1 -> NoteCreateFragment(archive)
                 in 2..noteListSize -> NoteFragment(archive.notesList[command - 2]).showContent()
-                else -> SystemMessage.NON_EXISTENT_COMMAND.printMessage()
+                else -> util.SystemMessage.NON_EXISTENT_COMMAND.printMessage()
             }
         }
     }

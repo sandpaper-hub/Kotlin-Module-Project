@@ -1,11 +1,11 @@
 package fragments
 
-import InputReader
+import util.InputReader
 import dataPack.DataManager
 import dataPack.Menu
 import enums.Command
-import enums.SystemMessage
-import printMenu
+import util.printMenu
+import util.printMessage
 import kotlin.system.exitProcess
 
 class ArchiveListFragment {
@@ -28,7 +28,7 @@ class ArchiveListFragment {
         initializeMenu()
         printMenu(menu)
         if (DataManager.archiveMap.isEmpty()) {
-            SystemMessage.EMPTY_ARCHIVE_LIST.printMessage()
+            util.SystemMessage.EMPTY_ARCHIVE_LIST.printMessage()
         }
     }
 
@@ -37,10 +37,11 @@ class ArchiveListFragment {
             val archiveListSize = DataManager.archiveMap.size + 1
             showMenu()
             when (val command = InputReader.readCommand()) {
+                -1 -> util.SystemMessage.INCORRECT_DATA.printMessage()
                 0 -> exitProcess(0)
                 1 -> ArchiveCreateFragment()
                 in 2..archiveListSize -> NoteListFragment(DataManager.archiveMap[menu.mapOfCommand[command].toString()]!!).startFragment()
-                else -> SystemMessage.NON_EXISTENT_COMMAND.printMessage()
+                else -> util.SystemMessage.NON_EXISTENT_COMMAND.printMessage()
             }
         }
     }

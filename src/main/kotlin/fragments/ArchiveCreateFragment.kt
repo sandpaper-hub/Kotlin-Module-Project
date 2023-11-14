@@ -1,11 +1,11 @@
 package fragments
 
 import dataPack.DataManager
-import enums.SystemMessage
+import util.printMessage
 
 class ArchiveCreateFragment {
     init {
-        SystemMessage.INPUT_ARCHIVE_NAME.printMessage()
+        util.SystemMessage.INPUT_ARCHIVE_NAME.printMessage()
         DataManager.addArchive()
     }
 }
